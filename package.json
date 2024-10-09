@@ -1,0 +1,25 @@
+{
+  "name": "./",
+  "type": "module",
+  "scripts": {
+    "random-function:deploy": "cd ./ao/random-function && ./scripts/deploy.sh",
+    "random-function:test": "cd ./ao/random-function && ./scripts/test.sh",
+    "random-function:build": "cd ./ao/random-function && ./scripts/build.sh",
+    "random-function:inject": "STATE_FILE=./ao/random-function/state-processes.yaml node ./utils/inject-process.js",
+    "frontend:dev": "cd ./apps/frontend && npm run dev",
+    "frontend:build": "cd ./apps/frontend && npm run build",
+    "frontend:deploy": "cd ./apps/frontend && npm run deploy"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "aoform": "latest",
+    "yaml": "^2.4.5"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "workspaces": [
+    "apps/*",
+    "ao/*"
+  ]
+}
