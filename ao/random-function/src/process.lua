@@ -13,9 +13,3 @@ Handlers.add("getNumber",
     Handlers.utils.hasMatchingTag("Action", "GetNumber"),
     process.getNumber
 )
-
-Handlers.add(
-    "ReceiveData",
-    Handlers.utils.hasMatchingTag("Action", "Receive-Response"),
-    process.receiveNumber
-)

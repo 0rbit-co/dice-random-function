@@ -6,9 +6,11 @@
   file: build/process.lua
   prerun: ./src/reset_modules.lua
   scheduler: _GQ33BkPtZrqxA84vM8Zk-N2aO0toNNu_C-l-rawrBA
-  module: GYrbbe0VbHim_7Hi6zrOpHQXrSQz07XNtwCnfbFo2I0
+  module: bkjb55i07GUCUSWROtKK4HU1mBS_X0TyH3M5jMV6aPg
   tags:
     - name: Name
       value: random-function
     - name: Powered-By
       value: create-ao-dapp
+    - name: Authority
+      value: fcoN_xJeisVsPXA-trzVAuIiqO3ydLQxM-L4XbrQKzY

@@ -2,8 +2,9 @@ do
 local _ENV = _ENV
 package.preload[ "lib.process_lib" ] = function( ... ) local arg = _G.arg;
 local mod = {}
+local json = require("json")
 
-function mod.getNumber()
+function mod.getNumber(msg)
     mod.sendReply(
         _0RBT_POINTS,
         "Transfer",
@@ -16,12 +17,14 @@ function mod.getNumber()
         },
         ""
     )
-end
 
-function mod.receiveNumber(msg)
-    local res = msg.Data
+    local res = Receive({ Action = "Receive-Response" }).Data;
+    print(res)
 
-    return res[0]
+
+    mod.sendReply(msg.From, "GetNumber", {
+        RandomNumber = res[0]
+    }, json.encode(res))
 end
 
 function mod.sendReply(target, action, tags, data)
@@ -51,10 +54,4 @@ BASE_URL      = "http://www.randomnumberapi.com/api/v1.0/random?min=1&max=6&coun
 Handlers.add("getNumber",
     Handlers.utils.hasMatchingTag("Action", "GetNumber"),
     process.getNumber
-)
-
-Handlers.add(
-    "ReceiveData",
-    Handlers.utils.hasMatchingTag("Action", "Receive-Response"),
-    process.receiveNumber
 )
