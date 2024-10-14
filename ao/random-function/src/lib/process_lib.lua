@@ -1,4 +1,6 @@
 local mod = {}
+local json = require("json")
+RANDOM_NUMBER = RANDOM_NUMBER or 0;
 
 function mod.getNumber()
     mod.sendReply(
@@ -16,9 +18,10 @@ function mod.getNumber()
 end
 
 function mod.receiveNumber(msg)
-    local res = msg.Data
-
-    return res[0]
+    local res = json.decode(msg.Data)
+    print(res[1])
+    RANDOM_NUMBER = res[1]
+    return RANDOM_NUMBER
 end
 
 function mod.sendReply(target, action, tags, data)
