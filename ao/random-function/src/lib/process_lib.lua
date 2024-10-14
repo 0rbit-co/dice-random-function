@@ -16,10 +16,11 @@ function mod.getNumber(msg)
     )
 
     local res = Receive({ Action = "Receive-Response" }).Data;
+    local finalRes = json.decode(res)
 
     mod.sendReply(msg.From, "GetNumber", {
-        RandomNumber = res[0]
-    }, json.encode(res))
+        RandomNumber = finalRes[1]
+    }, json.encode(finalRes[1]))
 end
 
 function mod.sendReply(target, action, tags, data)
