@@ -21,6 +21,7 @@ function mod.receiveNumber(msg)
     local res = json.decode(msg.Data)
     print(res[1])
     RANDOM_NUMBER = res[1]
+    print(RANDOM_NUMBER)
     return RANDOM_NUMBER
 end
 

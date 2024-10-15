@@ -5,10 +5,7 @@ import Generate from "./components/number";
 function App() {
   return (
     <>
-      <h1>Vite + React + AO</h1>
-      <p className="read-the-docs">
-        AO Books Process:{" "}
-      </p>
+      <h1>🎲 Dice Game</h1>
       <div className="card">
         <div>
           <ConnectButton profileModal={true} showBalance={true} />

@@ -19,3 +19,12 @@ Handlers.add(
     Handlers.utils.hasMatchingTag("Action", "Receive-Response"),
     process.receiveNumber
 )
+
+Handlers.add(
+    "ReturnData",
+    Handlers.utils.hasMatchingTag("Action", "ReadNumber"),
+    function(msg)
+        print(RANDOM_NUMBER)
+        Handlers.utils.reply(tostring(RANDOM_NUMBER))(msg)
+    end
+)

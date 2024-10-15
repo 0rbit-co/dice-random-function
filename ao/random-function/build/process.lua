@@ -24,6 +24,7 @@ function mod.receiveNumber(msg)
     local res = json.decode(msg.Data)
     print(res[1])
     RANDOM_NUMBER = res[1]
+    print(RANDOM_NUMBER)
     return RANDOM_NUMBER
 end
 
@@ -60,4 +61,13 @@ Handlers.add(
     "ReceiveData",
     Handlers.utils.hasMatchingTag("Action", "Receive-Response"),
     process.receiveNumber
+)
+
+Handlers.add(
+    "ReturnData",
+    Handlers.utils.hasMatchingTag("Action", "ReadNumber"),
+    function(msg)
+        print(RANDOM_NUMBER)
+        Handlers.utils.reply(tostring(RANDOM_NUMBER))(msg)
+    end
 )
