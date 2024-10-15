@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { message, createDataItemSigner, dryrun } from "@permaweb/aoconnect";
+import { AlertCircle, Dice1, Dice2, Dice3, Dice4, Dice5, Dice6 } from 'lucide-react';
 
 const getRandomNumber = async (): Promise<number> => {
   try {
@@ -26,73 +27,84 @@ const getRandomNumber = async (): Promise<number> => {
   }
 };
 
-interface DiceProps {
-  number: number;
-  isRolling: boolean;
-}
+const DiceIcon = ({ number, isRolling }: { number: number | null; isRolling: boolean }) => {
+  const [currentFace, setCurrentFace] = useState(1);
+  const icons = [Dice1, Dice2, Dice3, Dice4, Dice5, Dice6];
 
-const Dice: React.FC<DiceProps> = ({ number, isRolling }) => {
-  const faces: React.ReactNode[][] = [
-    [<div key="center" className="dot center-dot" />],
-    [<div key="top-left" className="dot top-left" />, <div key="bottom-right" className="dot bottom-right" />],
-    [<div key="top-left" className="dot top-left" />, <div key="center" className="dot center-dot" />, <div key="bottom-right" className="dot bottom-right" />],
-    [<div key="top-left" className="dot top-left" />, <div key="top-right" className="dot top-right" />, <div key="bottom-left" className="dot bottom-left" />, <div key="bottom-right" className="dot bottom-right" />],
-    [<div key="top-left" className="dot top-left" />, <div key="top-right" className="dot top-right" />, <div key="center" className="dot center-dot" />, <div key="bottom-left" className="dot bottom-left" />, <div key="bottom-right" className="dot bottom-right" />],
-    [<div key="top-left" className="dot top-left" />, <div key="top-right" className="dot top-right" />, <div key="middle-left" className="dot middle-left" />, <div key="middle-right" className="dot middle-right" />, <div key="bottom-left" className="dot bottom-left" />, <div key="bottom-right" className="dot bottom-right" />],
-  ];
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (isRolling) {
+      interval = setInterval(() => {
+        setCurrentFace((prev) => (prev % 6) + 1);
+      }, 100);
+    }
+    return () => clearInterval(interval);
+  }, [isRolling]);
+
+  const DiceComponent = icons[(number !== null ? number : currentFace) - 1] || Dice1;
 
   return (
-    <div className={`dice ${isRolling ? 'rolling' : ''}`}>
-      <div className="face front">{faces[number - 1]}</div>
-      <div className="face back">{faces[5]}</div>
-      <div className="face right">{faces[2]}</div>
-      <div className="face left">{faces[3]}</div>
-      <div className="face top">{faces[4]}</div>
-      <div className="face bottom">{faces[0]}</div>
+    <div className={`transition-transform duration-100 ${isRolling ? 'animate-spin' : ''}`}>
+      <DiceComponent size={100} />
     </div>
   );
 };
 
-const Generate: React.FC = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [randomNumber, setRandomNumber] = useState<number | null>(null);
+const EnhancedDiceGame: React.FC = () => {
+  const [isRolling, setIsRolling] = useState<boolean>(false);
+  const [diceNumber, setDiceNumber] = useState<number | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleGenerateClick = async (): Promise<void> => {
-    setIsLoading(true);
-    setRandomNumber(null);
+  const handleRollDice = useCallback(async () => {
+    setIsRolling(true);
+    setError(null);
+    setDiceNumber(null);
     try {
       const result = await getRandomNumber();
-      setRandomNumber(result);
-    } catch (error) {
-      console.error("Failed to generate random number:", error);
-      // You might want to set an error state here and display it to the user
-    } finally {
-      setIsLoading(false);
+      setTimeout(() => {
+        setDiceNumber(result);
+        setIsRolling(false);
+      }, 2000); // Adjust this delay to match your desired animation duration
+    } catch (err) {
+      setError("Failed to roll the dice. Please try again.");
+      console.error("Failed to generate random number:", err);
+      setIsRolling(false);
     }
-  };
+  }, []);
 
   return (
-    <div className="generate-container">
-        <div className="dice-container">
-          <Dice number={randomNumber ?? 1} isRolling={isLoading} />
+    <div className="bg-white shadow-lg rounded-lg p-6 w-[350px]">
+      <div className="mb-4">
+        <h2 className="text-2xl font-bold mb-2">🎲 Dice Game</h2>
+        <p className="text-gray-600">Roll the dice and test your luck!</p>
+      </div>
+      <div className="flex flex-col items-center mb-4">
+        <div className="mb-4 h-[100px] flex items-center justify-center">
+          <DiceIcon number={diceNumber} isRolling={isRolling} />
         </div>
-        <div className="button-container">
-          <button
-            type="button"
-            onClick={handleGenerateClick}
-            className={`generate-button ${isLoading ? 'loading' : ''}`}
-            disabled={isLoading}
-          >
-            {isLoading ? "Rolling..." : "Roll Dice"}
-          </button>
-        </div>
-        {randomNumber !== null && (
-          <div className="result">
-            Random Number: {randomNumber}
+        {error && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+            <strong className="font-bold">Error!</strong>
+            <span className="block sm:inline"> {error}</span>
           </div>
         )}
+        <button 
+          onClick={handleRollDice} 
+          disabled={isRolling}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full disabled:opacity-50"
+        >
+          {isRolling ? "Rolling..." : "Roll Dice"}
+        </button>
+      </div>
+      <div className="text-center">
+        {diceNumber && !isRolling && (
+          <p className="text-sm text-gray-600">
+            You rolled a {diceNumber}!
+          </p>
+        )}
+      </div>
     </div>
   );
 };
 
-export default Generate;
+export default EnhancedDiceGame;

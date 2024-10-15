@@ -1,18 +1,13 @@
 import { ConnectButton } from "arweave-wallet-kit";
 import "./App.css";
-import Generate from "./components/number";
+import EnhancedDiceGame from "./components/number";
 
 function App() {
   return (
-    <>
-      <h1>🎲 Dice Game</h1>
-      <div className="card">
-        <div>
-          <ConnectButton profileModal={true} showBalance={true} />
-        </div>
-        <Generate />
-      </div>
-    </>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-gray-100 to-gray-300">
+      <ConnectButton profileModal={true} showBalance={true} className="mb-8" />
+      <EnhancedDiceGame />
+    </div>
   );
 }
 
