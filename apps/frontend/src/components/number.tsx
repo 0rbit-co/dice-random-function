@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { message, createDataItemSigner, dryrun } from "@permaweb/aoconnect";
-import { AlertCircle, Dice1, Dice2, Dice3, Dice4, Dice5, Dice6 } from 'lucide-react';
+import { Dice1, Dice2, Dice3, Dice4, Dice5, Dice6 } from 'lucide-react';
 
 const getRandomNumber = async (): Promise<number> => {
   try {
