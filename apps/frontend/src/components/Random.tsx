@@ -1,11 +1,12 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { message, createDataItemSigner, dryrun } from "@permaweb/aoconnect";
 import { Dice1, Dice2, Dice3, Dice4, Dice5, Dice6 } from 'lucide-react';
+import { RANDOM } from '../constants/random_process'; 
 
 const getRandomNumber = async (): Promise<number> => {
   try {
     const msg = await message({
-      process: "Km0l59SF9p-A8JtHUnKqF0WYHO-HwTesnVXv4sDiEvY",
+      process: RANDOM,
       signer: createDataItemSigner(window.arweaveWallet),
       tags: [{ name: "Action", value: "GetNumber" }],
     });
@@ -13,7 +14,7 @@ const getRandomNumber = async (): Promise<number> => {
     return new Promise((resolve) => {
       setTimeout(async () => {
         const output = await dryrun({
-          process: "Km0l59SF9p-A8JtHUnKqF0WYHO-HwTesnVXv4sDiEvY",
+          process: RANDOM,
           tags: [{ name: "Action", value: "ReadNumber" }],
         });
         const random = parseInt(output.Output["data"]);
@@ -32,7 +33,7 @@ const DiceIcon = ({ number, isRolling }: { number: number | null; isRolling: boo
   const icons = [Dice1, Dice2, Dice3, Dice4, Dice5, Dice6];
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval: any;
     if (isRolling) {
       interval = setInterval(() => {
         setCurrentFace((prev) => (prev % 6) + 1);
@@ -44,7 +45,7 @@ const DiceIcon = ({ number, isRolling }: { number: number | null; isRolling: boo
   const DiceComponent = icons[(number !== null ? number : currentFace) - 1] || Dice1;
 
   return (
-    <div className={`transition-transform duration-100 ${isRolling ? 'animate-spin' : ''}`}>
+    <div className={`transition-transform duration-100 ${isRolling ? '' : ''}`}>
       <DiceComponent size={100} />
     </div>
   );
@@ -64,7 +65,7 @@ const EnhancedDiceGame: React.FC = () => {
       setTimeout(() => {
         setDiceNumber(result);
         setIsRolling(false);
-      }, 2000); // Adjust this delay to match your desired animation duration
+      }, 2000);
     } catch (err) {
       setError("Failed to roll the dice. Please try again.");
       console.error("Failed to generate random number:", err);
@@ -73,11 +74,7 @@ const EnhancedDiceGame: React.FC = () => {
   }, []);
 
   return (
-    <div className="bg-white shadow-lg rounded-lg p-6 w-[350px]">
-      <div className="mb-4">
-        <h2 className="text-2xl font-bold mb-2">🎲 Dice Game</h2>
-        <p className="text-gray-600">Roll the dice and test your luck!</p>
-      </div>
+    <div className="">
       <div className="flex flex-col items-center mb-4">
         <div className="mb-4 h-[100px] flex items-center justify-center">
           <DiceIcon number={diceNumber} isRolling={isRolling} />
@@ -91,7 +88,7 @@ const EnhancedDiceGame: React.FC = () => {
         <button 
           onClick={handleRollDice} 
           disabled={isRolling}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full disabled:opacity-50"
+          className="bg-[#EB8F44] hover:bg-[#EB8F44]/60 text-white font-bold py-2 px-4 rounded-xl disabled:opacity-50"
         >
           {isRolling ? "Rolling..." : "Roll Dice"}
         </button>

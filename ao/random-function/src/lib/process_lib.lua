@@ -1,7 +1,9 @@
 local mod = {}
 local json = require("json")
+
 RANDOM_NUMBER = RANDOM_NUMBER or 0;
 
+-- Function to send a GET Request to 0rbit
 function mod.getNumber()
     mod.sendReply(
         _0RBT_POINTS,
@@ -17,6 +19,7 @@ function mod.getNumber()
     )
 end
 
+-- Processes the received random number from 0rbit
 function mod.receiveNumber(msg)
     local res = json.decode(msg.Data)
     print(res[1])
@@ -25,6 +28,13 @@ function mod.receiveNumber(msg)
     return RANDOM_NUMBER
 end
 
+-- Reads and replies with the current random number
+function mod.readNumber(msg)
+    print(RANDOM_NUMBER)
+    Handlers.utils.reply(tostring(RANDOM_NUMBER))(msg)
+end
+
+-- Helper function to send a reply message
 function mod.sendReply(target, action, tags, data)
     Send({
         Target = target,
