@@ -67,4 +67,9 @@ Make sure to fund your AO Process using 0rbit points on which the process is dep
 
 ## Support
 
-For any issues or questions, please open an issue on the GitHub repository or ping us on Discord.
+For any issues or questions, please:
+
+- Open an issue on the GitHub repository
+- Ping us on [Discord](https://discord.gg/nm6VKUQBrA)
+
+You can also read the blog [here](https://blog.0rbit.co/dice-game-with-0rbit).
