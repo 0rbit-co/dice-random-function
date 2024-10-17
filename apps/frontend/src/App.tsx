@@ -13,7 +13,7 @@ const App: React.FC = () => {
   return (
     <div className="flex flex-col min-h-screen bg-[#E3E7D3]">
       <nav className="p-4">
-        <img src="/logo.svg" alt="logo" className="h-20" />
+        <img src="/full_logo.svg" alt="logo" className="h-20" />
       </nav>
 
       <main className="flex-grow flex flex-col items-center justify-center p-6">
@@ -50,7 +50,7 @@ const App: React.FC = () => {
                 className="mb-4"
               />
               <p className="text-[#45512A] text-lg font-medium font-raleway mt-4">
-                Connect your arweave wallet to continue
+                Connect your Arweave Wallet to continue
               </p>
             </div>
           )}
