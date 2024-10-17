@@ -1,12 +1,12 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { message, createDataItemSigner, dryrun } from "@permaweb/aoconnect";
 import { Dice1, Dice2, Dice3, Dice4, Dice5, Dice6 } from 'lucide-react';
-import { RANDOM } from '../constants/random_process'; 
+import { RANDOM_FUNCTION } from '../constants/random_function_process';
 
 const getRandomNumber = async (): Promise<number> => {
   try {
     const msg = await message({
-      process: RANDOM,
+      process: RANDOM_FUNCTION,
       signer: createDataItemSigner(window.arweaveWallet),
       tags: [{ name: "Action", value: "GetNumber" }],
     });
@@ -14,7 +14,7 @@ const getRandomNumber = async (): Promise<number> => {
     return new Promise((resolve) => {
       setTimeout(async () => {
         const output = await dryrun({
-          process: RANDOM,
+          process: RANDOM_FUNCTION,
           tags: [{ name: "Action", value: "ReadNumber" }],
         });
         const random = parseInt(output.Output["data"]);
@@ -86,8 +86,8 @@ const EnhancedDiceGame: React.FC = () => {
             <span className="block sm:inline"> {error}</span>
           </div>
         )}
-        <button 
-          onClick={handleRollDice} 
+        <button
+          onClick={handleRollDice}
           disabled={isRolling}
           className="bg-[#EB8F44] hover:bg-[#EB8F44]/60 text-white font-bold py-2 px-4 rounded-xl disabled:opacity-50"
         >

@@ -1,7 +1,7 @@
 local mod = {}
 local json = require("json")
 
-RANDOM_NUMBER = RANDOM_NUMBER or 0;
+RANDOM_NUMBER = RANDOM_NUMBER or 1;
 
 -- Function to send a GET Request to 0rbit
 function mod.getNumber()
