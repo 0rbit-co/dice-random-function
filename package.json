@@ -2,10 +2,10 @@
   "name": "./",
   "type": "module",
   "scripts": {
-    "random-function:deploy": "cd ./ao/random-function && ./scripts/deploy.sh",
-    "random-function:test": "cd ./ao/random-function && ./scripts/test.sh",
-    "random-function:build": "cd ./ao/random-function && ./scripts/build.sh",
-    "random-function:inject": "STATE_FILE=./ao/random-function/state-processes.yaml node ./utils/inject-process.js",
+    "random_function:deploy": "cd ./ao/random_function && ./scripts/deploy.sh",
+    "random_function:test": "cd ./ao/random_function && ./scripts/test.sh",
+    "random_function:build": "cd ./ao/random_function && ./scripts/build.sh",
+    "random_function:inject": "STATE_FILE=./ao/random_function/state-processes.yaml node ./utils/inject-process.js",
     "frontend:dev": "cd ./apps/frontend && npm run dev",
     "frontend:build": "cd ./apps/frontend && npm run build",
     "frontend:deploy": "cd ./apps/frontend && npm run deploy"

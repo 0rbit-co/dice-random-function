@@ -4,40 +4,41 @@ This project implements a random number generator using the 0rbit platform and A
 
 ## Prerequisites
 
-- [Bun](https://bun.sh/): A fast JavaScript all-in-one toolkit
 - [LuaRocks](https://luarocks.org/): A package manager for Lua modules
 - [Node.js and npm](https://nodejs.org/): JavaScript runtime and package manager
 
 ### Installing Prerequisites
 
-1. **Bun**: Follow the installation instructions on the [Bun.sh website](https://bun.sh/).
-2. **LuaRocks**: Follow the installation instructions on the [LuaRocks website](https://luarocks.org/).
-5. **Node.js and npm**: Download and install from the [official Node.js website](https://nodejs.org/).
+1. **LuaRocks**: Follow the installation instructions on the [LuaRocks website](https://luarocks.org/).
+2. **Node.js and npm**: Download and install from the [official Node.js website](https://nodejs.org/).
 
 ## Project Structure
 
-- Backend Processes: Located in the `./ao/random-function` directory
+- Backend Processes: Located in the `./ao/random_function` directory
 - Frontend Application: Located in the `./apps/frontend` directory
 
 ## Setting Up and Running the AO Process
 
-1. Place your `wallet.json` file in the root folder of the project.
-
-2. Set the wallet environment variable:
+1. Set the wallet environment variable:
    ```bash
-   export WALLET_JSON="$(cat ./wallet.json)"
+   export WALLET_JSON="$(cat ~/.aos.json)"
    ```
 
-3. Build the process:
+2. Build the process:
    ```bash
-   cd ao/random-function && ./scripts/build.sh
-   npm run random-function:build
+   cd ao/random_function && ./scripts/build.sh
+   npm run random_function:build
    ```
 
-4. Deploy the process:
+3. Deploy the process:
    ```bash
-   npm run random-function:deploy
+   npm run random_function:deploy
    ```
+
+4. Inject the process in frontend:
+   ```bash
+   npm run random_function:inject
+   ``` 
 
 ## Setting Up and Running the Frontend
 
@@ -51,12 +52,7 @@ This project implements a random number generator using the 0rbit platform and A
    npm i
    ```
 
-3. Create a `constants.ts` file in the `src/constants` folder and add the following line:
-   ```typescript
-   export const RANDOM = "YOUR_PROCESS_ID";
-   ```
-
-4. Start the development server:
+3. Start the development server:
    ```bash
    npm run dev
    ```

@@ -1,0 +1,1 @@
+export const RANDOM_FUNCTION = "lOwC8wqtCQcxiuR-1P-zuCfAKuOemMKL6F1o70erktw";
