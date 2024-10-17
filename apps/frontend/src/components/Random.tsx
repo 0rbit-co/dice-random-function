@@ -64,6 +64,7 @@ const EnhancedDiceGame: React.FC = () => {
       const result = await getRandomNumber();
       setTimeout(() => {
         setDiceNumber(result);
+        console.log("Result:", result);
         setIsRolling(false);
       }, 2000);
     } catch (err) {

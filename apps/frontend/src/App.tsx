@@ -17,7 +17,7 @@ const App: React.FC = () => {
       </nav>
 
       <main className="flex-grow flex flex-col items-center justify-center p-6">
-        <div className="bg-[#D0DCA2]/20 rounded-3xl border-2 p-10 border-[#7D8569] w-full max-w-2xl relative">
+        <div className="bg-[#D0DCA2]/20 rounded-3xl border-2 p-20 lg:p-10 border-[#7D8569] w-full max-w-2xl relative">
           <h1 className="text-[#45512A] text-4xl font-medium font-raleway text-center mb-8">
             Dice Game with Orbit
           </h1>
@@ -55,6 +55,7 @@ const App: React.FC = () => {
             </div>
           )}
         </div>
+        <div className="pt-4 font-raleway">Check out the blog <a href="https://0rbit.hashnode.dev/dice-game-with-0rbit" className="text-orange-500 hover:underline">here!</a></div>
       </main>
 
       <footer className="flex justify-center space-x-6 p-4">
